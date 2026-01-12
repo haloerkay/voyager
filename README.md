@@ -1,0 +1,52 @@
+# Voyager && ChampSim
+
+包含Voayger和ChampSim两个目录，其中Voyager用于训练模型，ChampSim用于对训练得到的模型进行模拟
+
+## 数据集
+
+复现论文所需数据集在该路径下 `https://utexas.app.box.com/s/2k54kp8zvrqdfaa8cdhfquvcxwh7yn85`
+
+## 训练模型
+
+进入到voyager目录下，运行online.py在线训练模型，使用的配置文件为seq_multi.yaml
+
+```
+python online.py  --benchmark 473.astar-s0.txt.xz  --config configs/seq_multi.yaml --model-path ./models/astar_model --print-every 100 --tb-dir ./logs/astar   --prefetch-file   ./logs/astar_online_prefetch.txt
+```
+
+> --benchmark       指定trace文件
+>
+> --config               指定配置文件
+>
+> --model-path       指定模型存放路径
+>
+> --print-every        打印进度信息
+>
+>  --tb-dir                TensorBoard日志目录
+>
+> --prefetch-file      预取结果输出文件
+
+训练完成后得到预取文件，将预取文件拷贝到ChampSim目录下
+
+## 模拟测试
+
+进入到ChampSim目录下
+
+- 构建模拟器
+
+```
+./ml_prefetch_sim.py build
+```
+
+- 使用预取文件运行
+
+```
+./ml_prefetch_sim.py run path_to_champsim_trace_here --prefetch path_to_prefetcher_file
+```
+
+- 评估结果
+
+```
+./ml_prefetch_sim.py eval
+```
+
