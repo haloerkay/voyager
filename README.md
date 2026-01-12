@@ -72,7 +72,7 @@ python generate.py --benchmark 473.astar-s0.txt.xz --config configs/base.yaml --
 ./ml_prefetch_sim.py run path_to_champsim_trace_here --prefetch path_to_prefetcher_file
 ```
 
-- 只运行base预取器，不运行baseline
+- 只运行预取器，不运行baseline
 
 ```
 ./ml_prefetch_sim.py run path_to_trace_here --prefetch path_to_prefetcher_file --no-base
