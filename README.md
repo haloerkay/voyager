@@ -8,6 +8,10 @@
 
 ## 训练模型
 
+训练包括在线训练和离线训练，论文中的展示结果为在线训练
+
+### 在线训练
+
 进入到voyager目录下，运行online.py在线训练模型，使用的配置文件为seq_multi.yaml
 
 ```
@@ -28,9 +32,25 @@ python online.py  --benchmark 473.astar-s0.txt.xz  --config configs/seq_multi.ya
 
 训练完成后得到预取文件，将预取文件拷贝到ChampSim目录下
 
+### 离线训练
+
+训练模型
+
+```
+python train.py  --benchmark 473.astar-s0.txt.xz  --config configs/base.yaml --model-path ./models/astar_model --print-every 100 --tb-dir ./logs/astar 
+```
+
+生成预取文件
+
+```
+python generate.py --benchmark 473.astar-s0.txt.xz --config configs/base.yaml --model-path ./models/astar_model --prefetch-file ./logs/astar_prefetch_test.txt --print-every 100 --tb-dir ./logs/astar
+```
+
 ## 模拟测试
 
 进入到ChampSim目录下
+
+### 构建
 
 - 构建模拟器
 
@@ -38,11 +58,27 @@ python online.py  --benchmark 473.astar-s0.txt.xz  --config configs/seq_multi.ya
 ./ml_prefetch_sim.py build
 ```
 
-- 使用预取文件运行
+### 运行
+
+- 只运行ChampSim的baseline，用于获取基准性能数据。
+
+```
+./ml_prefetch_sim.py run path_to_champsim_trace_here
+```
+
+- 同时运行baseline以及自定义预取器，用于对比性能
 
 ```
 ./ml_prefetch_sim.py run path_to_champsim_trace_here --prefetch path_to_prefetcher_file
 ```
+
+- 只运行baseline，不运行预取器
+
+```
+./ml_prefetch_sim.py run path_to_trace_here --prefetch path_to_prefetcher_file --no-base
+```
+
+### 评估
 
 - 评估结果
 
