@@ -1,6 +1,6 @@
 # Voyager && ChampSim
 
-包含Voayger和ChampSim两个目录，其中Voyager用于训练模型，ChampSim用于对训练得到的模型进行模拟
+包含Voayger和ChampSim两个目录，其中Voyager用于训练模型，ChampSim用于对模型生成的预取文件进行模拟测试
 
 ## 数据集
 
@@ -34,7 +34,7 @@ python online.py  --benchmark 473.astar-s0.txt.xz  --config configs/seq_multi.ya
 >
 > --prefetch-file      预取结果输出文件
 
-训练完成后得到预取文件，将预取文件拷贝到ChampSim目录下
+训练完成后得到预取文件，用于后续的模拟步骤
 
 ### 离线训练
 
